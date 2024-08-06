@@ -21,8 +21,9 @@ pipeline {
                     // Build the Docker image
                     // <your-image-name> is the name you want to give to the image like 'test'
                     // sh 'docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t test .'
-                    sh "docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t ${SONARKUBE_ANALYSIS_IMAGE} ."
-                    sh "docker run -d --name ${SONARKUBE_ANALYSIS_IMAGE} ${SONARKUBE_ANALYSIS_IMAGE}"
+                    // sh "docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t ${SONARKUBE_ANALYSIS_IMAGE} ."
+                    // sh "docker run -d --name ${SONARKUBE_ANALYSIS_IMAGE} ${SONARKUBE_ANALYSIS_IMAGE}"
+		    
                 }
             }
         }
