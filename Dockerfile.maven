@@ -1,0 +1,36 @@
+# Use a base image with OpenJDK, suitable for Java and other JVM languages
+FROM openjdk:22-ea-34-bookworm
+
+# Set the working directory
+WORKDIR /workspace
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y \
+        maven \
+        gradle \
+        nano \
+        apt-transport-https \
+        dirmngr \
+        gnupg \
+        software-properties-common && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install .NET SDK
+RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+    dpkg -i packages-microsoft-prod.deb && \
+    apt-get update && \
+    apt-get install -y dotnet-sdk-6.0 && \
+    rm packages-microsoft-prod.deb
+
+# Copy the project files into the image
+COPY ./ /workspace/
+
+# Example command to run Maven, Gradle or .NET Core CLI
+# Set here commad which you have get form sonarkube project creation
+CMD ["sonar-scanner", \
+  "-Dsonar.projectKey=test", \
+  "-Dsonar.sources=.", \
+  "-Dsonar.host.url=https://sonarkube.ntdc.fr", \
+  "-Dsonar.token=sqp_4fb71dcb93294aa255ffe8bf474e30c065a5dcd4"]
