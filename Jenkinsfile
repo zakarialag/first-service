@@ -15,19 +15,6 @@ pipeline {
     }
 
     stages {
-        stage('Build Docker Image for sonarkube Analysis') {
-            steps {
-                script {
-                    // Build the Docker image
-                    // <your-image-name> is the name you want to give to the image like 'test'
-                    // sh 'docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t test .'
-                    // sh "docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t ${SONARKUBE_ANALYSIS_IMAGE} ."
-                    // sh "docker run -d --name ${SONARKUBE_ANALYSIS_IMAGE} ${SONARKUBE_ANALYSIS_IMAGE}"
-		    
-                }
-            }
-        }
-
         stage('Run Maven Deploy to Nexus') {
             steps {
                 configFileProvider([configFile(fileId: "${NEXUS_CREDENTIALS_FILE_ID}", variable: 'mevansettings')]) {
