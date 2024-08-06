@@ -5,9 +5,9 @@ pipeline {
         DOCKER_IMAGE = 'test'
         DOCKER_TAG = 'latest'
         SONARKUBE_ANALYSIS_IMAGE = 'test-analysis'
-        NEXUS_URL = 'nexus.nt-data-consulting.fr'
-        DOCKER_AUTH = 'nexus.nt-data-consulting.fr/docker-auth'
-        NEXUS_REPO = 'test'
+        NEXUS_URL = 'nexus.ntdc.fr'
+        DOCKER_AUTH = 'nexus.ntdc.fr/docker-auth'
+        NEXUS_REPO = 'docker'
         NEXUS_CREDENTIALS_ID = 'nexus'
         PROJECT_SONARKUBE_DOCKERFILE = 'Dockerfile.maven'
         SERVICE_PORT = 8086
