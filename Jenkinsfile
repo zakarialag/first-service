@@ -21,8 +21,6 @@ pipeline {
             steps {
                 script {
                     // Build the Docker image
-                    // <your-image-name> is the name you want to give to the image like 'test'
-                    // sh 'docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t test .'
                     sh "docker build -f ${PROJECT_SONARKUBE_DOCKERFILE} -t ${SONARKUBE_ANALYSIS_IMAGE} ."
                     sh "docker run -d --name ${SONARKUBE_ANALYSIS_IMAGE} ${SONARKUBE_ANALYSIS_IMAGE}"
                 }
@@ -63,26 +61,22 @@ pipeline {
             }
         }
         
-        stage('Run Micorservice') {
+        stage('Run Microservice') {
             steps {
                 script {
                     // Tag the image with the Nexus repository URL
                     sh "docker run -d -p ${SERVICE_PORT}:${SERVICE_PORT} ${NEXUS_URL}/${NEXUS_REPO}/${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    
                 }
             }
         }
-
-        
     }
-     post {
+    
+    post {
         always {
-            steps {
-                script {
-                    // Here add the image name which you have use name in first stage of sonarkube
-                    sh 'docker rm -f  <your-image-name>'
-                    sh 'docker rmi  <your-image-name>'
-                }
+            script {
+                // Clean up the Docker container and image
+                sh "docker rm -f ${SONARKUBE_ANALYSIS_IMAGE}"
+                sh "docker rmi ${SONARKUBE_ANALYSIS_IMAGE}"
             }
         }
     }
