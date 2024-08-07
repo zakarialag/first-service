@@ -2,7 +2,7 @@
 FROM openjdk:22-ea-34-bookworm
 
 # Set the working directory
-WORKDIR /workspace
+WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && \
@@ -24,13 +24,25 @@ RUN wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod
     apt-get install -y dotnet-sdk-6.0 && \
     rm packages-microsoft-prod.deb
 
+
+# Download and install the Sonar Scanner CLI
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-6.1.0.4477-linux-x64.zip && \
+    unzip sonar-scanner-cli-6.1.0.4477-linux-x64.zip -d /opt && \
+    rm sonar-scanner-cli-6.1.0.4477-linux-x64.zip
+
+# Ensure the correct sonar-scanner binary is used
+RUN ln -s /opt/sonar-scanner-6.1.0.4477-linux-x64/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+    ls -la /opt/sonar-scanner-6.1.0.4477-linux-x64/bin/ && \
+    sonar-scanner --version
+
+ENV PATH="/opt/sonar-scanner-6.1.0.4477-linux-x64/bin:${PATH}"
+
 # Copy the project files into the image
-COPY ./ /workspace/
+COPY . /app/
 
 # Example command to run Maven, Gradle or .NET Core CLI
 # Set here commad which you have get form sonarkube project creation
-CMD ["sonar-scanner", \
-  "-Dsonar.projectKey=test", \
-  "-Dsonar.sources=.", \
-  "-Dsonar.host.url=https://sonarkube.ntdc.fr", \
-  "-Dsonar.token=sqp_4fb71dcb93294aa255ffe8bf474e30c065a5dcd4"]
+# Give permission to execute the scanner.sh script
+RUN chmod +x /app/scanner.sh
+
+CMD ["tail", "-f", "/dev/null"]
