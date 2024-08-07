@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Run SonarQube Scanner
-sonar-scanner \
-  -Dsonar.projectKey=python_project \
-  -Dsonar.sources=., \
-  -Dsonar.host.url=https://sonarkube.your-domain.com, \
-  -Dsonar.login=sqp_your_sonar_token
+mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=test \
+  -Dsonar.projectName='test' \
+  -Dsonar.host.url=https://sonarkube.ntdc.fr \
+  -Dsonar.token=test
