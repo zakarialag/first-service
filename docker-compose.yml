@@ -9,12 +9,5 @@ services:
     container_name: first-server
     ports:
       - "8082:8082"
-    networks:
-      - eureka-network
     restart: unless-stopped
-
-networks:
-  eureka-network:
-    name: eureka-netwrok
-    driver: bridge
-
+    network_mode: host

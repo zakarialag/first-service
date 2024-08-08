@@ -1,27 +1,27 @@
-# Use the official OpenJDK 22 image as a base
+# Use a build stage to compile and package the Java application
 FROM openjdk:22-jdk-slim as build
-
-# Set the working directory in the Docker image
 WORKDIR /app
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
 # Copy the Maven pom.xml file and source code into the Docker image
 COPY . .
 
-# Install Maven in the Docker image and build the application
-RUN apt-get update && \
-    apt-get install -y maven && \
-    mvn clean package -DskipTests
+# Build the application without running tests
+RUN mvn clean package -DskipTests
 
-# Start a new build stage
+# Start a new build stage for running the application
 FROM openjdk:22-jdk-slim
-
-# Set the working directory to /app
 WORKDIR /app
 
 # Expose the port the app runs on
 EXPOSE 8761
 
-# Copy the built jar file from the previous stage into this new stage
+# Install network utilities
+RUN apt-get update && apt-get install -y curl iputils-ping && rm -rf /var/lib/apt/lists/*
+
+# Copy the built jar file from the previous stage
 COPY --from=build /app/target/first-service-*.jar /app/first-service.jar
 
 # Command to run the application
