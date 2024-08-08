@@ -8,6 +8,6 @@ services:
     image: first-server:latest
     container_name: first-server
     ports:
-      - "8082:8082"
+      - "8089:8089"
     restart: unless-stopped
     network_mode: host

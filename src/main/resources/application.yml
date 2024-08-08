@@ -1,9 +1,9 @@
 server:
-  port: 8081
+  port: 8089
 spring:
   application:
     name: first-server
 eureka:
   client:
     serviceUrl:
-      defaultZone: https://eureka.ntdc.fr/
+      defaultZone: https://eureka.ntdc.fr/eureka/

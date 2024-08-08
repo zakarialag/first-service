@@ -16,7 +16,7 @@ FROM openjdk:22-jdk-slim
 WORKDIR /app
 
 # Expose the port the app runs on
-EXPOSE 8761
+EXPOSE 8089
 
 # Install network utilities
 RUN apt-get update && apt-get install -y curl iputils-ping && rm -rf /var/lib/apt/lists/*
