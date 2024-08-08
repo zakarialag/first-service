@@ -1,9 +1,0 @@
-server:
-  port: 8089
-spring:
-  application:
-    name: first-server
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: https://eureka.ntdc.fr/eureka/
