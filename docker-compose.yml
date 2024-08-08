@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  first-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: first-server:latest
+    container_name: first-server
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+    network_mode: host
