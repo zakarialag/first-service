@@ -84,13 +84,11 @@ pipeline {
     }
      post {
         always {
-            steps {
                 script {
                     // Here add the image name which you have use name in first stage of sonarkube
                     sh "docker rm -f  ${SONARKUBE_ANALYSIS_IMAGE}"
                     sh "docker rmi  ${SONARKUBE_ANALYSIS_IMAGE}"
-                }
-            }
+               }
         }
     }
 }
