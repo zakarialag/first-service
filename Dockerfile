@@ -15,8 +15,6 @@ RUN mvn clean package -DskipTests
 FROM openjdk:22-jdk-slim
 WORKDIR /app
 
-# Expose the port the app runs on
-EXPOSE 8082
 
 # Install network utilities
 RUN apt-get update && apt-get install -y curl iputils-ping && rm -rf /var/lib/apt/lists/*
