@@ -10,7 +10,7 @@ pipeline {
         NEXUS_REPO = 'docker' // used name which you have use in nexus to create docker repository
         NEXUS_CREDENTIALS_ID = 'nexus' //this is the id of nexus cred which you setup in global cred (user pass)
         PROJECT_SONARKUBE_DOCKERFILE = 'Dockerfile.maven'
-        SERVICE_PORT = 9090
+        SERVICE_PORT = 9091
         NEXUS_CREDENTIALS_FILE_ID = 'c421f6bf-3ed5-4e67-8110-b278b4c2499f'
     }
 
