@@ -75,7 +75,7 @@ pipeline {
             steps {
                 script {
                     // Tag the image with the Nexus repository URL
-                    sh "docker run -d -p ${SERVICE_PORT}:${SERVICE_PORT} --name ${NEXUS_URL}/${NEXUS_REPO}/${DOCKER_IMAGE} ${NEXUS_URL}/${NEXUS_REPO}/${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker run -d -p ${SERVICE_PORT}:${SERVICE_PORT} --name ${DOCKER_IMAGE} ${NEXUS_URL}/${NEXUS_REPO}/${DOCKER_IMAGE}:${DOCKER_TAG}"
 
                 }
             }
